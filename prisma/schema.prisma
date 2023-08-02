@@ -11,9 +11,10 @@ datasource db {
 }
 
 model User{
-  id        Int      @id @unique @default(autoincrement())
-  name      String
+  id        Int      @id @default(autoincrement())
+  name      String  
   elo       Int      @default(1000)
   login     String   @unique
+  rank      Int      @default(0)
 }
 

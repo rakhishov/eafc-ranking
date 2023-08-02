@@ -49,7 +49,7 @@ export default async function Page({params}:{
                                 href="/ranking"
 
                             >
-                                <p className="flex items-center justify-center gap-1 font-semibold leading-[20px]">#{profile.id}</p>
+                                <p className="flex items-center justify-center gap-1 font-semibold leading-[20px]">#{profile.rank}</p>
                                 <p className="text-2xs font-bold uppercase leading-[20px]">RANK</p>
                             </a>
                         </div>
@@ -68,6 +68,5 @@ export default async function Page({params}:{
                 </div>
             </Card>
         </div>
-    )
-    
+    )   
 }
