@@ -3,6 +3,10 @@ const nextConfig = {
     experimental: {
         serverActions: true,
       },
+      reactStrictMode: true, 
+    images: {
+    domains: ['uploadthing.com'],
+    },
 }
 
 module.exports = nextConfig

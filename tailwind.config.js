@@ -29,10 +29,6 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
-    colors:{
-      darkColor: '#1f2937',
-      cardColor: '#374151'
-    }
   },
   plugins: [require("tailwindcss-animate")],
 }

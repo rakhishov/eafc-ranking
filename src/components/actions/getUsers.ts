@@ -1,13 +1,13 @@
+'use server'
 import { prisma } from "../../../prisma/client"
 
-async function loadOptions(){
-    'use server'
+async function getUsers(){
     const users = await prisma.user.findMany({
-        select:{
-            login: true
+        orderBy: {
+            elo: 'desc'
         }
     })
     return users
 }
 
-export default loadOptions
+export default getUsers

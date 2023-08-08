@@ -1,4 +1,5 @@
-import {prisma} from '../../../prisma/client'
+
+import {prisma} from '../../../../prisma/client'
 import Link from 'next/link'
 import {
     Table,
@@ -10,16 +11,9 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { useEffect, useState } from 'react'
+import getUsers from '@/components/actions/getUsers'
 
-//export function
-async function getUsers(){
-    const users = await prisma.user.findMany({
-        orderBy: {
-            elo: 'desc'
-        }
-    })
-    return users
-}
 
 export default async function RankingPage(){
     const users = await getUsers()
@@ -42,8 +36,8 @@ export default async function RankingPage(){
                         <TableCell key={index} >{index+1}</TableCell>
                         <TableCell>
                         <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>{user.name.charAt(0).toLocaleUpperCase()}</AvatarFallback>
+                            {user.avatarLink != null ? <AvatarImage src={user.avatarLink} /> : <AvatarFallback> <p className=''>{user.name.charAt(0).toLocaleUpperCase()}</p></AvatarFallback>}
+                            <AvatarFallback className='text-neutral-600'>{user.name.charAt(0).toLocaleUpperCase()}</AvatarFallback>
                         </Avatar>
                         </TableCell>
                         <TableCell>{user.name}</TableCell>

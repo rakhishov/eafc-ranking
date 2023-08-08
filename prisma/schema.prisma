@@ -16,5 +16,51 @@ model User{
   elo       Int      @default(1000)
   login     String   @unique
   rank      Int      @default(0)
+  avatarLink String
+  matches_player1    Match[] @relation(name: "Match_player1")
+  matches_player2    Match[] @relation(name: "Match_player2")
+  wins     Int      @default(0)
+  losses   Int      @default(0)
+  draws    Int      @default(0)
+  socialLinks      SocialLink[]
+  auth             Auth?
+
 }
+
+model Match {
+  matchID         Int      @id @default(autoincrement())
+  player1    User     @relation("Match_player1", fields: [player1login], references: [login])
+  player1login  String
+  player2    User     @relation("Match_player2", fields: [player2login], references: [login])
+  player2login  String
+  score1      Int
+  score2      Int
+  result      String
+  date       DateTime @updatedAt
+}
+
+model SocialLink {
+  id         Int      @id @default(autoincrement())
+  instagram   String   // Example: "instagram", "telegram", "twitter"
+  telegram   String
+  user       User?    @relation(fields: [userLogin], references: [login])
+  userLogin    String?
+}
+
+model Auth {
+  id       Int      @id @default(autoincrement())
+  userLogin   String      @unique
+  user     User     @relation(fields: [userLogin], references: [login])
+  password String
+  // Other fields for tokens, reset tokens, etc.
+}
+
+
+
+
+
+
+
+
+
 
