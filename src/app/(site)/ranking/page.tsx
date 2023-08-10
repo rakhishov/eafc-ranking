@@ -20,7 +20,7 @@ export default async function RankingPage(){
     return (
     <div className='m-10'>
         <Table className='lg:w-3/5 lg:m-auto '>
-            <TableCaption>Astana Ranking</TableCaption>
+            <TableCaption>Ranking</TableCaption>
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-[50px]">#</TableHead>

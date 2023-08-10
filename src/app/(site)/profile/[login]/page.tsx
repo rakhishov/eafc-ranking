@@ -249,7 +249,7 @@ export default async function Page({params}:{
                     }
 
                     {socials.length>0 ? 
-                    <a className="appearance-none cursor-pointer flex group h-6 items-center justify-center relative rounded-10 text-sm transition w-6" href={`http://${socials[0].instagram}`}>
+                    <a className="appearance-none cursor-pointer flex group h-6 items-center justify-center relative rounded-10 text-sm transition w-6" href={`http://${socials[0].telegram}`}>
                         <FaTelegram size={24} />
                     </a> : ''
                     }

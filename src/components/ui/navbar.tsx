@@ -9,7 +9,6 @@ import logo from '../../app/icon.png'
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Ranking', href: '/ranking', current: false },
-  { name: 'Calendar', href: '#', current: false },
 ]
 
 function classNames(...classes: any[]) {
@@ -136,7 +135,7 @@ export default function Navbar() {
                 </Menu>
               </div>
          :
-         <Link className='text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium' href="/login"> Sign in</Link>
+         <Link className = {classNames(session.status=='loading' ? 'hidden' : 'class"text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium')} href="/login"> Sign in</Link>
          }
                   </div>
           </div>

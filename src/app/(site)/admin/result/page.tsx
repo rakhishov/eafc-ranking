@@ -71,24 +71,30 @@ export default function Result(){
     return(<>
         <div className="p-5 flex flex-col items-center text-neutral-800">
             <form onSubmit={handleSubmit}>
-                <div className='flex flex-row gap-4'>
+            <h2 className="pb-2 justify-center text-center text-[30px] text-white font-bold leading-[36px]">Create New Result</h2>
+                <div className='flex flex-row max-md:flex-col gap-4 mt-3 justify-center items-center'>
                     <Select 
-                    className="w-[200px]"
+                    className="w-[150px]"
                     value={selectedOption1}
                     onChange={handleOption1}
                     options={players}
+                    required
                     />
 
-                    <Input className="w-[45px]" type="number" defaultValue={0} name="score1" onChange={handleScore1Change}></Input>
-                    <Input className="w-[45px]" type="number" defaultValue={0} name="score2" onChange={handleScore2Change}></Input>
-
+                    
+                    <Input className="w-[45px]" type="number" defaultValue={0} max={10} name="score1" onChange={handleScore1Change}></Input>
+                    <Input className="w-[45px]" type="number" defaultValue={0} max={10} name="score2" onChange={handleScore2Change}></Input>
+                    
                     <Select 
-                    className="w-[200px]"
+                    className="w-[150px]"
                     defaultValue={selectedOption2}
                     onChange={handleOption2}
                     options={players}
+                    required
                     />
-                    <button className="text-white" type="submit">Submit </button>
+                </div>
+                <div className="justify-center items-center text-center mt-5">
+                    <button className="text-white bg-gray-800 hover:bg-gray-800/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2" type="submit">Submit </button>
                 </div>
 
 

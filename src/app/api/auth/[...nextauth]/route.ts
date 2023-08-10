@@ -44,8 +44,9 @@ export const authOptions = {
                 })
 
                 const nt = Object.assign(user, avatar)
-        
-                if (credentials.login === user?.userLogin && credentials.password === user.password) {
+                const passwordMatch = (credentials.password === user?.password)
+
+                if (credentials.login === user?.userLogin && passwordMatch) {
                     return nt as any
                 } else {
                     return null
@@ -55,11 +56,11 @@ export const authOptions = {
         }),  
     ],
     callbacks: {
-        async session({session, token}){
+        async session({session, token} : any){
             session.user = token.user
             return session
         },
-        async jwt({token, user}){
+        async jwt({token, user}: any){
             if(user){
                 token.user = user;
             }

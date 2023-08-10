@@ -43,28 +43,40 @@ export default function Page(){
         router.replace('/ranking')
     }
 
+    function disableUploadButton(){
+        var element = document.getElementById("uploadButton");
+        element?.classList.add("hidden");
+    }
+
     return(
     <> {session?.user!=null && 
-        <form className="flex flex-col items-center" onSubmit={handleSubmit}>
-            
+        
+        <form className="flex flex-col mt-5 items-center" onSubmit={handleSubmit}>
+            <h2 className="pb-2 text-[30px] font-bold leading-[36px]">Create New Player</h2>
             <div className='flex flex-col justify-center align-middle text-black gap-4 mt-4 mb-4'>
                     <Input className="w-[200px]" type="text"  name="name" onChange={handleNameChange} placeholder="name" />
                     <Input className="w-[200px]" type="text" name="login" onChange={handleLoginChange} placeholder="login" required />
                     <Input className="w-[200px]" type="number" name="elo" onChange={handleEloChange} defaultValue={1000} />
             </div>
-            <UploadButton
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                // Do something with the response
-                if(res){
-                    setPhoto(res[0].fileUrl);
-                }
-                }}
-                onUploadError={(error: Error) => {
-                // Do something with the error.
-                alert(`ERROR! ${error.message}`);
-                }}
-                />
+            <div className="" id="uploadButton">
+                <UploadButton
+                    endpoint="imageUploader"
+                    onClientUploadComplete={(res) => {
+                    // Do something with the response
+                    if(res){
+                        setPhoto(res[0].fileUrl);
+                        disableUploadButton();
+                    }
+                    
+                    
+                    }
+                    }
+                    onUploadError={(error: Error) => {
+                    // Do something with the error.
+                    alert(`ERROR! ${error.message}`);
+                    }}
+                    />
+            </div>
             <button className="" type="submit">Submit </button>
         </form>
 }
