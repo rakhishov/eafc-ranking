@@ -1,7 +1,8 @@
 import Image from 'next/image'
-
+import Footer from '@/components/ui/footer'
 export default function Home() {
   return (
+    <>
     <div className='grid max-md:grid-cols-1 grid-cols-2 gap-10 lg:w-3/5 lg lg:m-auto p-6 '>
       <div className='flex flex-col justify-center'>
         <h2 className='pb-2 text-[36px] font-bold leading-[36px]'>What's this?</h2>
@@ -37,6 +38,7 @@ export default function Home() {
         />
       </div>
     </div>
-    
+    <Footer/>
+    </>
   )
 }
