@@ -20,10 +20,21 @@ interface Game {
     result: string;
     date: string; // Should be a string representation of the date, not a Date object
   }
+interface User{
+        id: number;
+        name: string;
+        elo: number;
+        login: string;
+        rank: number;
+        avatarLink: string;
+        wins: number;
+        losses: number;
+        draws: number;
+}
 export async function generateStaticParams() {
     const users = await prisma.user.findMany()
    
-    return users.map((user) => ({
+    return users.map((user: User) => ({
       login: user.login,
     }))
 }
