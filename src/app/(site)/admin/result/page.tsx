@@ -41,8 +41,8 @@ export default function Result(){
         formData.append('score2', score2);
         formData.append('login2', login2);
         countResult(formData)
-        revalidatePath('/profile/[login1]')
-        revalidatePath('/profile/[login2]')
+        revalidatePath(`/profile/${login1}`)
+        revalidatePath(`/profile/${login2}`)
         router.replace('/ranking')
     }
     const handleScore1Change = (e: React.ChangeEvent<HTMLInputElement>) =>{
@@ -59,7 +59,7 @@ export default function Result(){
         setSelectedOption2(e)
     }
     useEffect(() => {
-        fetch(`https://${location.host}/api/users`)
+        fetch(`${location.hostname == 'localhost' ? "http" : "https"}://${location.host}/api/users`)
         .then((res)=> res.json())
         .then((data)=> {
             const options = data.map((player: any) => ({
