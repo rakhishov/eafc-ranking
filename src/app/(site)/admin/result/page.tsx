@@ -56,7 +56,7 @@ export default function Result(){
         setSelectedOption2(e)
     }
     useEffect(() => {
-        fetch(`http://${location.host}/api/users`)
+        fetch(`https://${location.host}/api/users`)
         .then((res)=> res.json())
         .then((data)=> {
             const options = data.map((player: any) => ({
