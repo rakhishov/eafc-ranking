@@ -6,7 +6,6 @@ export default function Login(){
 
     const session = useSession()
     const router = useRouter()
-    console.log(session.data)
     const [data, setData] = useState({
             login: '',
             password: ''
