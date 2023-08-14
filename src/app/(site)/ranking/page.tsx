@@ -14,7 +14,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useEffect, useState } from 'react'
 import getUsers from '@/components/actions/getUsers'
 import PaginationControls from '@/components/ui/PaginationControls'
-
+interface User{
+    id: number;
+    name: string;
+    elo: number;
+    login: string;
+    rank: number;
+    avatarLink: string;
+    wins: number;
+    losses: number;
+    draws: number;
+}
 export default async function RankingPage({
     searchParams,
 }: {
@@ -39,7 +49,7 @@ export default async function RankingPage({
                 </TableRow>
             </TableHeader>
             <TableBody>
-            {players.map((user, index) =>
+            {players.map((user: User, index: number) =>
                 <TableRow key={user.id}>
                         <TableCell key={index} >{(Number(page)-1)*Number(per_page) + (index+1)}</TableCell>
                         <TableCell>
