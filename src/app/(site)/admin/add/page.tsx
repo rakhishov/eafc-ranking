@@ -35,7 +35,6 @@ export default function Page(){
         e.preventDefault();
 
         const formData = new FormData();
-        console.log(formData.append('name', name));
         formData.append('login', login);
         formData.append('elo', elo);
         formData.append('link', photo);
