@@ -5,6 +5,7 @@ import countResult from "@/components/actions/countResult";
 import { useEffect, useState } from "react"
 import { redirect, useRouter } from "next/navigation"
 import { signOut, useSession } from "next-auth/react";
+import { revalidatePath } from "next/cache";
 
 
 
@@ -40,6 +41,8 @@ export default function Result(){
         formData.append('score2', score2);
         formData.append('login2', login2);
         countResult(formData)
+        revalidatePath('/profile/[login1]')
+        revalidatePath('/profile/[login2]')
         router.replace('/ranking')
     }
     const handleScore1Change = (e: React.ChangeEvent<HTMLInputElement>) =>{

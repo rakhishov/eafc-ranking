@@ -9,7 +9,7 @@ import { FaInstagram, FaTelegram, FaTwitter } from 'react-icons/fa';
 
 
 export const dynamicParams = false
-// export const revalidate = 15
+export const revalidate = 3600
 interface Game {
     matchID: number;
     player1login: string;
@@ -211,7 +211,6 @@ function recentGames(games: Game[], pagePlayer: string){
 export default async function Page({params}:{   
     params: {login: string}
 }){
-    
     const profile = await getProfile(params.login) as any
     const matches = await getMatches(params.login) as any
     const socials = await getSocials(params.login) as any
