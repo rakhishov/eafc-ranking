@@ -5,7 +5,7 @@ const nextConfig = {
       },
       reactStrictMode: true, 
     images: {
-    domains: ['uploadthing.com', 'pbs.twimg.com', 'www.ggrecon.com'],
+    domains: ['uploadthing.com', 'pbs.twimg.com', 'www.ggrecon.com', 'utfs.io'],
     },
 }
 

@@ -35,8 +35,11 @@ export async function generateMetadata({ params }: any) {
   }
 async function getProfile(login: string){
     'use server'
-    const player = await fetch('http://localhost:3000/api/user?login='+login).
-        then(res => res.json())
+    const player = await prisma.user.findUnique({
+        where: {
+            login: login
+        }
+    })
     revalidatePath('/profile/[login]')
     return player
 } 

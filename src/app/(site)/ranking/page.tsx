@@ -28,7 +28,7 @@ export default async function RankingPage({
     const players = users.slice(start, end)
     return (
     <div className='m-10'>
-        <Table className='lg:w-3/5 lg:m-auto '>
+        <Table className='pt-6 pb-2 grid-cols-2 gap-10 mx-auto max-w-[1210px] px-2 sm:px-6 lg:px-8'>
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-[50px]">#</TableHead>
@@ -40,7 +40,7 @@ export default async function RankingPage({
             </TableHeader>
             <TableBody>
             {players.map((user, index) =>
-                <TableRow>
+                <TableRow key={user.id}>
                         <TableCell key={index} >{(Number(page)-1)*Number(per_page) + (index+1)}</TableCell>
                         <TableCell>
                         <Avatar>
