@@ -16,7 +16,7 @@ function classNames(...classes: any[]) {
 }
 
 export default function Navbar() {
-  const session = useSession()
+  const session:any = useSession() 
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }: any) => (
@@ -75,7 +75,7 @@ export default function Navbar() {
                         className="rounded-full"
                         height={32}
                         width={32}
-                        src={`${session.status === 'authenticated' ? session.data.user.avatarLink: 'hi'}`}
+                        src={`${(session.status === 'authenticated' && session.data.user!=undefined) ? session.data.user.avatarLink: 'hi'}`}
                         alt=""
                       />
                     </Menu.Button>

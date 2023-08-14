@@ -151,7 +151,7 @@ function recentGames(games: Game[], pagePlayer: string){
         return(
             <div key={game.matchID} className="group relative block w-full bg-gray-800 rounded-3xl mt-2 px-4 py-3 text-left focus-visible:outline-none appearance-none transition">
                 <div className="grid auto-rows-[50px] grid-cols-[90px,1fr,90px] items-center gap-3 xl:grid-cols-[120px,1fr,120px]">
-                    <div>{game.date.toLocaleDateString('en-GB')}</div>
+                    <div>{Date.parse(game.date).toLocaleString('en-GB')}</div>
                     <div className="grid auto-cols-[70px] grid-cols-[1fr,auto,1fr] items-center gap-3">
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[1fr,auto]">

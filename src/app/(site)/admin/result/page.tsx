@@ -26,8 +26,8 @@ export default function Result(){
     const [players, setPlayers] = useState<Player[]>([])
     const [selectedOption1, setSelectedOption1] = useState<Player>();
     const [selectedOption2, setSelectedOption2] = useState<Player>();
-    const [score1, setScore1] = useState<number>(0)
-    const [score2, setScore2] = useState<number>(0)
+    const [score1, setScore1] = useState<string>('0')
+    const [score2, setScore2] = useState<string>('0')
 
     const handleSubmit = async(e: any) =>{
         e.preventDefault();
@@ -43,10 +43,10 @@ export default function Result(){
         router.replace('/ranking')
     }
     const handleScore1Change = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setScore1(parseInt(e.target.value))
+        setScore1(e.target.value)
     }
     const handleScore2Change = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        setScore2(parseInt(e.target.value))
+        setScore2(e.target.value)
     }
     const handleOption1 = (e: any) =>{
         setSelectedOption1(e)

@@ -19,7 +19,7 @@ export default function Page(){
     const [photo, setPhoto] = useState<string>('');
     const [name, setName] = useState<string>('');
     const [login, setLogin] = useState<string>('');
-    const [elo, setElo] = useState<Number>(1000);
+    const [elo, setElo] = useState<string>('1000');
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -28,7 +28,7 @@ export default function Page(){
         setLogin(e.target.value);
     }
     const handleEloChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setElo(parseInt(e.target.value));
+        setElo(e.target.value);
     }
 
     const handleSubmit = async(e: any) =>{

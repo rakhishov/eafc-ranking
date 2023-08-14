@@ -19,7 +19,7 @@ export default function Login(){
                 }
             })
 
-            const loginUser = async (e) => {
+            const loginUser = async (e : any) => {
                 e.preventDefault()
                 signIn('credentials',
                  {...data, redirect: false
