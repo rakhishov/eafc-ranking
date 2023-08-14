@@ -149,14 +149,14 @@ function recentGames(games: Game[], pagePlayer: string){
         const avatar1 = await getAvatar(game.player1login)
         const avatar2 = await getAvatar(game.player2login)
         return(
-            <div className="group relative block w-full bg-gray-800 rounded-3xl mt-2 px-4 py-3 text-left focus-visible:outline-none appearance-none transition">
+            <div key={game.matchID} className="group relative block w-full bg-gray-800 rounded-3xl mt-2 px-4 py-3 text-left focus-visible:outline-none appearance-none transition">
                 <div className="grid auto-rows-[50px] grid-cols-[90px,1fr,90px] items-center gap-3 xl:grid-cols-[120px,1fr,120px]">
                     <div>{game.date.toLocaleDateString('en-GB')}</div>
                     <div className="grid auto-cols-[70px] grid-cols-[1fr,auto,1fr] items-center gap-3">
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[1fr,auto]">
                                 <div className="flex h-10 w-10 items-center justify-center order-2 justify-self-end">
-                                    <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar1?.avatarLink!=''? avatar1?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}/>
+                                    <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar1?.avatarLink!=''? avatar1?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                 </div>
                                 <p className="min-w-[1px] truncate text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`http://localhost:3000/profile/${game.player1login}`}>{game.player1login}</Link> </p>
                             </div>
@@ -179,7 +179,7 @@ function recentGames(games: Game[], pagePlayer: string){
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[auto,1fr]">
                                 <div className="relative flex h-10 w-10 items-center justify-center">
-                                    <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar2?.avatarLink!=''? avatar2?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}/>
+                                    <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar2?.avatarLink!=''? avatar2?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                 </div>
                                 <p className="min-w-[1px] truncate text-small font-medium leading-[20px] order-1 text-left">
                                     <Link href={`http://localhost:3000/profile/${game.player2login}`}>{game.player2login}</Link> 
@@ -211,7 +211,7 @@ export default async function Page({params}:{
             <Card className=" bg-cardColor base:p-6 block py-7 rounded-20">
             <div className="px-8">
                 <div className="relative mb-2 flex justify-center">
-                    <img className="rounded-full border border-gg-dark-3 bg-gg-dark-3 object-cover h-[150px] w-[150px]"
+                    <img alt="" className="rounded-full border border-gg-dark-3 bg-gg-dark-3 object-cover h-[150px] w-[150px]"
                         src={profile.avatarLink.length>0 ? profile.avatarLink : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
                     />
                 </div>

@@ -1,6 +1,4 @@
-import Link from "next/link"
-import { redirect } from "next/navigation"
-export default async function(){
+export default async function Dashboard(){
     return(<>
     <div className="flex justify-center gap-5 mt-5">
 
