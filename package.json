@@ -33,6 +33,7 @@
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
     "next": "13.4.7",
+    "next-absolute-url": "^1.2.2",
     "next-auth": "^4.22.4",
     "next-cloudinary": "^4.16.3",
     "postcss": "8.4.24",

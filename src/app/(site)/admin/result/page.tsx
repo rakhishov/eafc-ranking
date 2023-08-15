@@ -22,7 +22,7 @@ export default function Result(){
         },
     })
     const router = useRouter();
-
+    const server = process.env.SERVER
 
     const [players, setPlayers] = useState<Player[]>([])
     const [selectedOption1, setSelectedOption1] = useState<Player>();
@@ -41,8 +41,7 @@ export default function Result(){
         formData.append('score2', score2);
         formData.append('login2', login2);
         countResult(formData)
-        revalidatePath(`/profile/${login1}`)
-        revalidatePath(`/profile/${login2}`)
+        revalidatePath(`/profile/[login]`)
         router.replace('/ranking')
     }
     const handleScore1Change = (e: React.ChangeEvent<HTMLInputElement>) =>{
@@ -59,7 +58,7 @@ export default function Result(){
         setSelectedOption2(e)
     }
     useEffect(() => {
-        fetch(`${location.hostname == 'localhost' ? "http" : "https"}://${location.host}/api/users`)
+        fetch(`${server}/api/users`)
         .then((res)=> res.json())
         .then((data)=> {
             const options = data.map((player: any) => ({

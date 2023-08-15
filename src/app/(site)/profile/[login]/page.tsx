@@ -1,11 +1,15 @@
 import { prisma } from "../../../../../prisma/client"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardTitle, CardContent, CardDescription, CardHeader, CardFooter } from "@/components/ui/card";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import Link from 'next/link'
 import cultura from '../../../../../public/cultura.jpg'
 import { FaInstagram, FaTelegram, FaTwitter } from 'react-icons/fa';
-
+import getProfile from "@/components/actions/getProfile";
+import getMatches from "@/components/actions/getMatches";
+import getSocials from "@/components/actions/getSocials";
+import getAvatar from "@/components/actions/getAvatar";
+import absoluteUrl from 'next-absolute-url'
 
 
 export const dynamicParams = false
@@ -30,6 +34,8 @@ interface User{
         losses: number;
         draws: number;
 }
+
+
 export async function generateStaticParams() {
     const users = await prisma.user.findMany()
    
@@ -43,60 +49,8 @@ export async function generateMetadata({ params }: any) {
       description: `Profile of ${params.login}`,
     }
   }
-async function getProfile(login: string){
-    'use server'
-    const player = await prisma.user.findUnique({
-        where: {
-            login: login
-        }
-    })
-    revalidatePath(`/profile/${login}`)
-    return player
-} 
 
-async function getMatches(login: string){
-    'use server'
-    const matches = await prisma.match.findMany({
-        where: {
-          OR: [
-            { player1login: login },
-            { player2login: login },
-          ],
-        },
-      });
-    const len = matches.length
-    if(len>5){
-        return matches.slice(len-5,len).reverse()
-    }
-    return matches.reverse()
-}
 
-async function getAvatar(login: string){
-    'use server'
-    const avatar = await prisma.user.findUnique({
-        where: {
-            login: login
-        },
-        select:{
-            avatarLink: true
-        }
-    })
-    return avatar;
-}
-
-async function getSocials(login: string){
-    'use server'
-    const socials = await prisma.socialLink.findMany({
-        where: {
-            userLogin: login
-        },
-        select:{
-            telegram: true,
-            instagram: true,
-        }
-    })
-    return socials;
-}
 
 async function getStatistics(login: string){
     const player = await prisma.user.findUnique({
@@ -105,9 +59,11 @@ async function getStatistics(login: string){
         }
     })
     let winrate: number = 0;
+
     if((player?.wins!=null) && (player.wins + player.draws + player.losses>0)){
         winrate = parseFloat((player?.wins/(player?.wins+player?.losses+player?.draws)*100).toFixed(2))
     }
+
     return(
         <div className="grid grid-cols-[auto,1fr] mb-5 bg-gray-800 rounded-2xl items-center gap-x-4 gap-y-6 rounded-20 p-6 md:grid-cols-[auto,1fr,auto] md:gap-6 appearance-none group relative transition">
             <div className="flex h-[80px] w-[80px] items-center">
@@ -154,7 +110,9 @@ async function getStatistics(login: string){
         </div>
     )
 }
+
 function recentGames(games: Game[], pagePlayer: string){
+    const server = process.env.SERVER as string
     return games.map(async (game) => {
         const avatar1 = await getAvatar(game.player1login)
         const avatar2 = await getAvatar(game.player2login)
@@ -168,7 +126,7 @@ function recentGames(games: Game[], pagePlayer: string){
                                 <div className="flex h-10 w-10 items-center justify-center order-2 justify-self-end">
                                     <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar1?.avatarLink!=''? avatar1?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                 </div>
-                                <p className="min-w-[1px] truncate text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${location.hostname == 'localhost' ? "http" : "https"}://${location.host}/profile/${game.player1login}`}>{game.player1login}</Link> </p>
+                                <p className="min-w-[1px] truncate text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${server}/profile/${game.player1login}`}>{game.player1login}</Link> </p>
                             </div>
                            </div>
                         <div className="relative min-w-[90px]">
@@ -192,7 +150,7 @@ function recentGames(games: Game[], pagePlayer: string){
                                     <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar2?.avatarLink!=''? avatar2?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                 </div>
                                 <p className="min-w-[1px] truncate text-small font-medium leading-[20px] order-1 text-left">
-                                    <Link href={`${location.hostname == 'localhost' ? "http" : "https"}://${location.host}}/profile/${game.player2login}`}>{game.player2login}</Link> 
+                                    <Link href={`${server}/profile/${game.player2login}`}>{game.player2login}</Link> 
                                 </p>
                             </div>
                            </div>
