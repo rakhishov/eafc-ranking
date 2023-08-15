@@ -2,6 +2,7 @@
 import updateRanking from "@/components/actions/updateRanking"
 import { prisma } from "../../../prisma/client";
 import { redirect } from 'next/navigation';
+import { revalidatePath } from "next/cache";
 
 
 async function addUser(formData: FormData): Promise<void>{
@@ -17,8 +18,8 @@ async function addUser(formData: FormData): Promise<void>{
             avatarLink: urllink
         },
     })
-    
     updateRanking()
+    revalidatePath('/ranking')
 }
 
 export default addUser
