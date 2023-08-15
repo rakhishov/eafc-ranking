@@ -3,6 +3,7 @@ import { prisma } from "../../../prisma/client";
 
 export default async function updateMatches(login1: string, login2: string, score1: number, score2: number){
     'use server'
+    
     const result = score1 > score2 ? "1" : (score2>score1 ? "2" : "X")
     const match = await prisma.match.create({
         data: {
@@ -13,6 +14,7 @@ export default async function updateMatches(login1: string, login2: string, scor
             result: result,
         }
     })
+    console.log(result)
     if(result === '1'){
         updateStatistics(login1, result)
         updateStatistics(login2, '2')
@@ -22,6 +24,7 @@ export default async function updateMatches(login1: string, login2: string, scor
         updateStatistics(login2, '1')
     }
     else if(result === 'X'){
+        console.log("Im updating it")
         updateStatistics(login1, result)
         updateStatistics(login2, result)
     }
