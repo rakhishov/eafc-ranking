@@ -9,7 +9,7 @@ async function getProfile(login: string){
             login: login
         }
     })
-    revalidateTag(`/profile/[login]/${login}`)
+    revalidateTag(login)
     return player
 }
 export default getProfile
