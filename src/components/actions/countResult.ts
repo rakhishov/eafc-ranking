@@ -4,6 +4,7 @@ import elo from "../functions/elo"
 import updateRanking from "./updateRanking"
 import { redirect } from 'next/navigation';
 import updateMatches from './updateMatches';
+import { revalidatePath } from "next/cache";
 export default async function handleSubmit(formData: FormData): Promise<void>{
     const score1 = parseInt(formData.get('score1') as string)
     const score2 = parseInt(formData.get('score2') as string)
@@ -43,6 +44,8 @@ export default async function handleSubmit(formData: FormData): Promise<void>{
                 elo: newElo2
             }
     })
+    revalidatePath('/profile/'+login1)
+    revalidatePath('/profile/'+login2)
     updateMatches(login1, login2, score1, score2)
     updateRanking()
 

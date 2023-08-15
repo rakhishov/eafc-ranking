@@ -13,7 +13,7 @@ import absoluteUrl from 'next-absolute-url'
 
 
 export const dynamicParams = false
-export const revalidate = 3600
+export const revalidate = 15
 interface Game {
     matchID: number;
     player1login: string;
@@ -57,7 +57,7 @@ async function getStatistics(login: string){
         where: {
             login: login
         }
-    })
+    },)
     let winrate: number = 0;
 
     if((player?.wins!=null) && (player.wins + player.draws + player.losses>0)){
@@ -66,13 +66,13 @@ async function getStatistics(login: string){
 
     return(
         <div className="grid grid-cols-[auto,1fr] mb-5 bg-gray-800 rounded-2xl items-center gap-x-4 gap-y-6 rounded-20 p-6 md:grid-cols-[auto,1fr,auto] md:gap-6 appearance-none group relative transition">
-            <div className="flex h-[80px] w-[80px] items-center">
-                <img className="w-[80px] object-contain h-[80px]" src={cultura.src} alt="" />
-            </div>
-            <div className="grid grid-cols-1 gap-1">
-                <h2 className="min-w-[1px] truncate font-semibold leading-[24px]"> Cultura</h2>
-                <p className="text-tiny font-extralight leading-[16px]">Pavlodar</p>
-            </div>
+                <div className="flex h-[80px] w-[80px] items-center">
+                    <img className="w-[80px] object-contain h-[80px]" src={cultura.src} alt="" />
+                </div>
+                <div className="grid grid-cols-1 gap-1">
+                    <h2 className="min-w-[1px] truncate font-semibold leading-[24px]"> Cultura</h2>
+                    <p className="text-tiny font-extralight leading-[16px]">Pavlodar</p>
+                </div>
             <div className="col-span-2 flex items-center justify-center gap-10 md:col-span-1">
                 <div className="grid grid-cols-1 gap-1">
                     <p className="flex items-center justify-center font-semibold leading-[24px]">
@@ -114,12 +114,16 @@ async function getStatistics(login: string){
 function recentGames(games: Game[], pagePlayer: string){
     const server = process.env.SERVER as string
     return games.map(async (game) => {
+        const date = new Date(game.date)
+        const year = date.getFullYear()
+        const month = date.getUTCMonth() + 1
+        const day = date.getUTCDate()
         const avatar1 = await getAvatar(game.player1login)
         const avatar2 = await getAvatar(game.player2login)
         return(
             <div key={game.matchID} className="group relative block w-full bg-gray-800 rounded-3xl mt-2 px-4 py-3 text-left focus-visible:outline-none appearance-none transition">
                 <div className="grid auto-rows-[50px] grid-cols-[90px,1fr,90px] items-center gap-3 xl:grid-cols-[120px,1fr,120px]">
-                    <div>{Date.parse(game.date).toLocaleString('en-GB')}</div>
+                    <div>{`${day}/${month}/${year}`}</div>
                     <div className="grid auto-cols-[70px] grid-cols-[1fr,auto,1fr] items-center gap-3">
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[1fr,auto]">

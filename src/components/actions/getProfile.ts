@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { prisma } from "../../../prisma/client"
 
 
@@ -9,7 +9,6 @@ async function getProfile(login: string){
             login: login
         }
     })
-    revalidateTag(login)
     return player
 }
 export default getProfile

@@ -23,7 +23,6 @@ export default function Result(){
     })
     const router = useRouter();
     const server = process.env.SERVER as string
-    console.log(server)
     const [players, setPlayers] = useState<Player[]>([])
     const [selectedOption1, setSelectedOption1] = useState<Player>();
     const [selectedOption2, setSelectedOption2] = useState<Player>();
@@ -41,7 +40,6 @@ export default function Result(){
         formData.append('score2', score2);
         formData.append('login2', login2);
         countResult(formData)
-        revalidatePath(`/profile/[login]`)
         router.replace('/ranking')
     }
     const handleScore1Change = (e: React.ChangeEvent<HTMLInputElement>) =>{
