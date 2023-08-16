@@ -11,7 +11,7 @@ import getSocials from "@/components/actions/getSocials";
 import getAvatar from "@/components/actions/getAvatar";
 import absoluteUrl from 'next-absolute-url'
 
-
+export const revalidate = 0
 export const dynamicParams = false
 interface Game {
     matchID: number;
