@@ -127,9 +127,11 @@ function recentGames(games: Game[], pagePlayer: string){
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[1fr,auto]">
                                 <div className="flex h-10 w-10 items-center justify-center order-2 justify-self-end">
-                                    <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar1?.avatarLink!=''? avatar1?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
+                                    <a href={`${server}/profile/${game.player1login}`}>
+                                    <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3 max-sm:ml-px" src={avatar1?.avatarLink!=''? avatar1?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
+                                    </a>
                                 </div>
-                                <p className="min-w-[1px] truncate text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${server}/profile/${game.player1login}`}>{game.player1login}</Link> </p>
+                                <p className=" truncate text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${server}/profile/${game.player1login}`}>{game.player1login}</Link> </p>
                             </div>
                            </div>
                         <div className="relative min-w-[90px]">
@@ -150,9 +152,12 @@ function recentGames(games: Game[], pagePlayer: string){
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[auto,1fr]">
                                 <div className="relative flex h-10 w-10 items-center justify-center">
+                                    <a href={`${server}/profile/${game.player2login}`}>
                                     <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar2?.avatarLink!=''? avatar2?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
+                                
+                                    </a>
                                 </div>
-                                <p className="min-w-[1px] truncate text-small font-medium leading-[20px] order-1 text-left">
+                                <p className=" truncate text-small font-medium leading-[20px] order-1 text-left">
                                     <Link href={`${server}/profile/${game.player2login}`}>{<span className="">{game.player2login}</span>}</Link> 
                                 </p>
                             </div>
