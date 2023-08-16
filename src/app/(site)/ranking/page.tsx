@@ -64,15 +64,17 @@ export default async function RankingPage({
                 </TableRow>)
                 }
                 
-            </TableBody>            
-        </Table>
-        <div className='lg:w-3/5 lg:m-auto flex justify-end pt-1'>
+            </TableBody>      
+            <TableCaption>
+            <div className='flex justify-end'>
         <PaginationControls
             hasNextPage={end<users.length}
             hasPreviousPage={start>0}
             length={users.length}
         />
         </div>
+            </TableCaption>      
+        </Table>
     </div>
 )
 }
