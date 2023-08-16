@@ -8,15 +8,15 @@ export default async function updateRanking(){
           elo: 'desc' // 'asc' for ascending order or 'desc' for descending order
         }
       });
-      for (let i = 0; i < orderedItems.length; i++) {
-        const user = orderedItems[i];
-        const newValue = await prisma.user.update({
-          where: {
-            login: user.login
-          },
-          data: {
-            rank: i + 1
-          }
-        });
-      } 
+      const fun = orderedItems.map((user, index) => prisma.user.update({
+        where: {
+          login: user.login
+        },
+        data: {
+          rank: index + 1
+        }
+      }))
+
+      await Promise.all(fun);
+
 }

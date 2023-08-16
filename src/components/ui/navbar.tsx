@@ -21,7 +21,7 @@ export default function Navbar() {
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }: any) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -36,7 +36,7 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
+                {/* <div className="flex flex-shrink-0 items-center">
                   <Image
                     className=""
                     height={32}
@@ -45,8 +45,8 @@ export default function Navbar() {
                     src={logo}
                     alt="Your Company"
                   />
-                </div>
-                <div className="hidden sm:ml-6 sm:block">
+                </div> */}
+                <div className="hidden sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a

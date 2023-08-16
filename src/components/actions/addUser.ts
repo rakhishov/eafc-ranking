@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from "next/cache";
 
 
-async function addUser(formData: FormData): Promise<void>{
+async function addUser(formData: FormData): Promise<void>{  
     const name = formData.get('name') as string
     const login = formData.get('login') as string
     const elo = parseInt(formData.get('elo') as string)

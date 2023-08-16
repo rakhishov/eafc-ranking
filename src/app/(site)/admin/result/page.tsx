@@ -5,7 +5,6 @@ import countResult from "@/components/actions/countResult";
 import { useEffect, useState } from "react"
 import { redirect, useRouter } from "next/navigation"
 import { signOut, useSession } from "next-auth/react";
-import { revalidatePath } from "next/cache";
 
 
 
@@ -94,7 +93,7 @@ export default function Result(){
                     />
                 </div>
                 <div className="justify-center items-center text-center mt-5">
-                    <button className="text-white bg-gray-800 hover:bg-gray-800/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2" type="submit">Submit </button>
+                    <button className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" type="submit">Submit </button>
                 </div>
 
 

@@ -14,7 +14,6 @@ export default async function updateMatches(login1: string, login2: string, scor
             result: result,
         }
     })
-    console.log(result)
     if(result === '1'){
         updateStatistics(login1, result)
         updateStatistics(login2, '2')
@@ -24,7 +23,6 @@ export default async function updateMatches(login1: string, login2: string, scor
         updateStatistics(login2, '1')
     }
     else if(result === 'X'){
-        console.log("Im updating it")
         updateStatistics(login1, result)
         updateStatistics(login2, result)
     }

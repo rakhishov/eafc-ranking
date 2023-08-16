@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardTitle, CardContent, CardDescription, CardHeader, CardFooter } from "@/components/ui/card";
 import { revalidatePath, revalidateTag } from "next/cache";
 import Link from 'next/link'
-import cultura from '../../../../../public/cultura.jpg'
+import fifa23 from '../../../../../public/fifa23.jpg'
 import { FaInstagram, FaTelegram, FaTwitter } from 'react-icons/fa';
 import getProfile from "@/components/actions/getProfile";
 import getMatches from "@/components/actions/getMatches";
@@ -13,7 +13,6 @@ import absoluteUrl from 'next-absolute-url'
 
 
 export const dynamicParams = false
-export const revalidate = 15
 interface Game {
     matchID: number;
     player1login: string;
@@ -67,11 +66,11 @@ async function getStatistics(login: string){
     return(
         <div className="grid grid-cols-[auto,1fr] mb-5 bg-gray-800 rounded-2xl items-center gap-x-4 gap-y-6 rounded-20 p-6 md:grid-cols-[auto,1fr,auto] md:gap-6 appearance-none group relative transition">
                 <div className="flex h-[80px] w-[80px] items-center">
-                    <img className="w-[80px] object-contain h-[80px]" src={cultura.src} alt="" />
+                    <img className="w-[80px] object-contain h-[80px]" src={fifa23.src} alt="" />
                 </div>
                 <div className="grid grid-cols-1 gap-1">
-                    <h2 className="min-w-[1px] truncate font-semibold leading-[24px]"> Cultura</h2>
-                    <p className="text-tiny font-extralight leading-[16px]">Pavlodar</p>
+                    <h2 className="min-w-[1px] truncate font-semibold leading-[24px]"> FIFA 23</h2>
+                    <p className="text-tiny font-extralight leading-[16px]">Kazakhstan</p>
                 </div>
             <div className="col-span-2 flex items-center justify-center gap-10 md:col-span-1">
                 <div className="grid grid-cols-1 gap-1">
@@ -154,14 +153,14 @@ function recentGames(games: Game[], pagePlayer: string){
                                     <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar2?.avatarLink!=''? avatar2?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                 </div>
                                 <p className="min-w-[1px] truncate text-small font-medium leading-[20px] order-1 text-left">
-                                    <Link href={`${server}/profile/${game.player2login}`}>{game.player2login}</Link> 
+                                    <Link href={`${server}/profile/${game.player2login}`}>{<span className="">{game.player2login}</span>}</Link> 
                                 </p>
                             </div>
                            </div>
                     </div>
                     <div className="justify-self-end">
                         <p className={`text-right text-xs font-bold uppercase leading-[10px] tracking-[0.05em] ${pagePlayer == game.player1login ? (game.result == '1' ? 'text-green-500' : (game.result == '2' ? 'text-red-500' : 'text-gray-400')) : (game.result == '2' ? 'text-green-500' : (game.result == '1' ? 'text-red-500' : 'text-gray-400')) } `}>
-                            {pagePlayer == game.player1login ? (game.result == '1' ? 'Win' : (game.result == '2' ? 'Loss' : 'Draw')) : (game.result == '2' ? 'Win' : (game.result == '1' ? 'Loss' : 'Draw')) }
+                            {pagePlayer == game.player1login ? (game.result == '1' ? 'W' : (game.result == '2' ? 'L' : 'D')) : (game.result == '2' ? 'W' : (game.result == '1' ? 'L' : 'D')) }
                         </p>
                     </div>
                 </div>
@@ -233,12 +232,12 @@ export default async function Page({params}:{
         </div>
         <div className="px-5 mb-5 max-lg:mt-10">
             <div>
-                <h2 className="text-xl font-bold mb-2">Statistics
+                <h2 className="text-xl font-bold mb-2 max-md:text-center">Statistics
                 </h2>
                 {getStatistics(params.login)}
             </div>
             <div>
-            <h2 className="text-xl font-bold">Recent Matches</h2>
+            <h2 className="text-xl font-bold max-md:text-center">Recent Matches</h2>
             {recentGames(matches, params.login)}
             </div>
         </div>
