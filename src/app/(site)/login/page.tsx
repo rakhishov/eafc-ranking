@@ -6,6 +6,8 @@ export default function Login(){
 
     const session = useSession()
     const router = useRouter()
+    const [loading, setLoading] = useState<Boolean>(false)
+    const [match, setMatch] = useState<Boolean>()
     const [data, setData] = useState({
             login: '',
             password: ''
@@ -20,11 +22,14 @@ export default function Login(){
 
             const loginUser = async (e : any) => {
                 e.preventDefault()
+                setLoading(true)
                 signIn('credentials',
                  {...data, redirect: false
                 })
                 .then((callback: any) => {
                     if (callback?.error) {
+                        setLoading(false)
+                        setMatch(false)
                         console.log(callback.error)
                     }
 
@@ -40,8 +45,11 @@ export default function Login(){
 
 
     return(<>
+    {session.status == 'loading' ? <></> : session.status == 'authenticated' ? <></> :
     <section className=" dark:bg-gray-900">
+
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    {loading ? <span className="loader"></span> : <>
         <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
             <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
             
@@ -54,7 +62,7 @@ export default function Login(){
                 </h1>
                 <form className="space-y-4 md:space-y-6" onSubmit={loginUser}>
                     <div>
-                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your login</label>
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Login</label>
                         <input 
                         type="text" 
                         name="email" 
@@ -83,14 +91,20 @@ export default function Login(){
                                 <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
                             </div>
                         </div>
-                        <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                     </div>
+                    {match!=null && match==false &&
+                    <div className="flex items-center justify-center">
+                            <div className="text-sm ">
+                                <label htmlFor="remember" className="text-red-600">Your login or password is wrong! Try again!</label>
+                            </div>
+                        </div>}
                     <button type="submit" className="w-full text-black bg-blue-600 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                 </form>
             </div>
         </div>
+        </>}
     </div>
-    </section>
+    </section>}
 </>
     )
 }

@@ -36,6 +36,8 @@ export default async function RankingPage({
     const start = (Number(page) - 1) * Number(per_page)
     const end = start + Number(per_page)
     const players = users.slice(start, end)
+
+
     return (
     <div className='m-10'>
         <Table className='pt-6 pb-2 grid-cols-2 gap-10 mx-auto max-w-[1210px] px-2 sm:px-6 lg:px-8'>

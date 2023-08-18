@@ -1,11 +1,12 @@
 'use client'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, Suspense, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '../../app/icon.png'
+import { Skeleton } from './skeleton'
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Ranking', href: '/ranking', current: false },
@@ -69,15 +70,18 @@ export default function Navbar() {
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    
                       <span className="absolute -inset-1.5" />
+                      
                       <span className="sr-only">Open user menu</span>
-                      <Image
-                        className="rounded-full"
-                        height={32}
-                        width={32}
-                        src={`${(session.status === 'authenticated' && session.data.user!=undefined) ? session.data.user.avatarLink: 'hi'}`}
-                        alt=""
-                      />
+                        <Image
+                          className="rounded-full"
+                          height={32}
+                          width={32}
+                          src={`${(session.status === 'authenticated' && session.data.user!=undefined) ? session.data.user.avatarLink: 'hi'}`}
+                          alt=""
+                        />
+                      
                     </Menu.Button>
                   </div>
                   <Transition

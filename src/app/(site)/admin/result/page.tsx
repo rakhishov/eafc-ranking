@@ -27,19 +27,25 @@ export default function Result(){
     const [selectedOption2, setSelectedOption2] = useState<Player>();
     const [score1, setScore1] = useState<string>('0')
     const [score2, setScore2] = useState<string>('0')
-
+    const [loading, setLoading] = useState<Boolean>(false)
     const handleSubmit = async(e: any) =>{
         e.preventDefault();
+        setLoading(true);
 
-        const formData = new FormData();
-        const login1 = selectedOption1?.value as string
-        const login2 = selectedOption2?.value as string
-        formData.append('login1', login1);
-        formData.append('score1', score1);
-        formData.append('score2', score2);
-        formData.append('login2', login2);
-        countResult(formData)
-        router.replace('/ranking')
+        try{
+            const formData = new FormData();
+            const login1 = selectedOption1?.value as string
+            const login2 = selectedOption2?.value as string
+            formData.append('login1', login1);
+            formData.append('score1', score1);
+            formData.append('score2', score2);
+            formData.append('login2', login2);
+            await countResult(formData)
+            router.replace('/ranking')
+        } catch(error){
+            console.error('API call failed:', error);
+            setLoading(false);
+        }
     }
     const handleScore1Change = (e: React.ChangeEvent<HTMLInputElement>) =>{
         setScore1(e.target.value)
@@ -68,7 +74,9 @@ export default function Result(){
     }, [])
     
     return(<>
+    {session?.user!=null &&
         <div className="p-5 flex flex-col items-center text-neutral-800">
+        {loading ? <span className="loader flex text-neutral-800 mt-10"></span> : 
             <form onSubmit={handleSubmit}>
             <h2 className="pb-2 justify-center text-center text-[30px] text-white font-bold leading-[36px]">Create New Result</h2>
                 <div className='flex flex-row max-md:flex-col gap-4 mt-3 justify-center items-center'>
@@ -98,8 +106,9 @@ export default function Result(){
 
 
 
-            </form>            
+            </form>}
         </div>
+}  
         </>
     )
 }
