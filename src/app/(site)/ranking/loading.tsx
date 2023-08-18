@@ -26,8 +26,8 @@ export default function Loading(){
                 <TableBody>
 
                 {[...Array(10)].map((i: number) =>
-                <TableRow>
-                        <TableCell key={i}>{}</TableCell>
+                <TableRow key={i}>
+                        <TableCell>{}</TableCell>
                         <TableCell>
                             <Avatar>
                                 <Skeleton className="w-[50px]"/>

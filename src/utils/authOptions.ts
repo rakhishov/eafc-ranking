@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
                 if(user!=null){
                     nt = Object.assign(user, avatar)
                 }
-                const passwordMatch = await bcrypt.compare(credentials.password, user?.password)
+                const passwordMatch = await bcrypt.compare(credentials.password, user?.password as string)
 
                 if (credentials.login === user?.userLogin && passwordMatch) {
                     return nt as any

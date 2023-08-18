@@ -50,6 +50,7 @@
     "uploadthing": "^5.2.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "prisma": "^5.1.1"
   }
 }
