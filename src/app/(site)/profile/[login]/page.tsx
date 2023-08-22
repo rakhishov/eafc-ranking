@@ -121,8 +121,8 @@ function recentGames(games: Game[], pagePlayer: string){
         const avatar2 = await getAvatar(game.player2login)
         return(
             <div key={game.matchID} className="group relative block w-full bg-gray-800 rounded-3xl mt-2 px-4 py-3 text-left focus-visible:outline-none appearance-none transition">
-                <div className="grid auto-rows-[50px] grid-cols-[90px,1fr,90px] items-center gap-3 xl:grid-cols-[120px,1fr,120px]">
-                    <div>{`${day}/${month}/${year}`}</div>
+                <div className="grid auto-rows-[50px] grid-cols-[70px,1fr,15px] items-center gap-3 xl:grid-cols-[120px,1fr,120px]">
+                    <div>{`${day}/${month}/${year.toString().slice(-2)}`}</div>
                     <div className="grid auto-cols-[70px] grid-cols-[1fr,auto,1fr] items-center gap-3">
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[1fr,auto]">
@@ -131,7 +131,7 @@ function recentGames(games: Game[], pagePlayer: string){
                                     <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3 max-sm:ml-px" src={avatar1?.avatarLink!=''? avatar1?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                     </a>
                                 </div>
-                                <p className=" truncate text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${server}/profile/${game.player1login}`}>{game.player1login}</Link> </p>
+                                <p className=" truncate max-[420px]:invisible text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${server}/profile/${game.player1login}`}>{game.player1login}</Link> </p>
                             </div>
                            </div>
                         <div className="relative min-w-[90px]">
@@ -157,7 +157,7 @@ function recentGames(games: Game[], pagePlayer: string){
                                 
                                     </a>
                                 </div>
-                                <p className=" truncate text-small font-medium leading-[20px] order-1 text-left">
+                                <p className=" truncate max-[420px]:invisible text-small font-medium leading-[20px] order-1 text-left">
                                     <Link href={`${server}/profile/${game.player2login}`}>{<span className="">{game.player2login}</span>}</Link> 
                                 </p>
                             </div>
@@ -165,7 +165,7 @@ function recentGames(games: Game[], pagePlayer: string){
                     </div>
                     <div className="justify-self-end">
                         <p className={`text-right text-xs font-bold uppercase leading-[10px] tracking-[0.05em] ${pagePlayer == game.player1login ? (game.result == '1' ? 'text-green-500' : (game.result == '2' ? 'text-red-500' : 'text-gray-400')) : (game.result == '2' ? 'text-green-500' : (game.result == '1' ? 'text-red-500' : 'text-gray-400')) } `}>
-                            {pagePlayer == game.player1login ? (game.result == '1' ? 'W' : (game.result == '2' ? 'L' : 'D')) : (game.result == '2' ? 'W' : (game.result == '1' ? 'L' : 'D')) }
+                            <span className="max-sm:hidden">{pagePlayer == game.player1login ? (game.result == '1' ? 'W' : (game.result == '2' ? 'L' : 'D')) : (game.result == '2' ? 'W' : (game.result == '1' ? 'L' : 'D')) }</span>
                         </p>
                     </div>
                 </div>
