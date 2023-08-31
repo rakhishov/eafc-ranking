@@ -21,6 +21,7 @@ export default function Loading(){
                         <TableHead>name</TableHead>
                         <TableHead>login</TableHead>
                         <TableHead className='text-right'>PTS</TableHead>
+                        <TableHead></TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>

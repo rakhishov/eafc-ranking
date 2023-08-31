@@ -5,11 +5,13 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import Link from 'next/link'
 import fifa23 from '../../../../../public/fifa23.jpg'
 import { FaInstagram, FaTelegram, FaTwitter } from 'react-icons/fa';
+
 import getProfile from "@/components/actions/getProfile";
 import getMatches from "@/components/actions/getMatches";
 import getSocials from "@/components/actions/getSocials";
 import getAvatar from "@/components/actions/getAvatar";
 import absoluteUrl from 'next-absolute-url'
+import getPlayerId from "@/components/actions/getPlayerId";
 
 export const revalidate = 0
 export const dynamicParams = false
@@ -39,22 +41,22 @@ export async function generateStaticParams() {
     const users = await prisma.user.findMany()
    
     return users.map((user: User) => ({
-      login: user.login,
+      id: (user.id).toString(),
     }))
 }
 export async function generateMetadata({ params }: any) {
     return {
-      title: `Player ${params.login}`,
-      description: `Profile of ${params.login}`,
+      title: `Player profile`,  
+      description: `Profile of player`,
     }
   }
 
 
 
-async function getStatistics(login: string){
+async function getStatistics(id: string){
     const player = await prisma.user.findUnique({
         where: {
-            login: login
+            id: parseInt(id)
         }
     },)
     let winrate: number = 0;
@@ -119,6 +121,8 @@ function recentGames(games: Game[], pagePlayer: string){
         const day = date.getUTCDate()
         const avatar1 = await getAvatar(game.player1login)
         const avatar2 = await getAvatar(game.player2login)
+        const id1 = await getPlayerId(game.player1login)
+        const id2 = await getPlayerId(game.player2login)
         return(
             <div key={game.matchID} className="group relative block w-full bg-gray-800 rounded-3xl mt-2 px-4 py-3 text-left focus-visible:outline-none appearance-none transition">
                 <div className="grid auto-rows-[50px] grid-cols-[70px,1fr,15px] items-center gap-3 xl:grid-cols-[120px,1fr,120px]">
@@ -127,11 +131,11 @@ function recentGames(games: Game[], pagePlayer: string){
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[1fr,auto]">
                                 <div className="flex h-10 w-10 items-center justify-center order-2 justify-self-end">
-                                    <a href={`${server}/profile/${game.player1login}`}>
+                                    <a href={`${server}/profile/${id1?.id.toString()}`}>
                                     <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3 max-sm:ml-px" src={avatar1?.avatarLink!=''? avatar1?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                     </a>
                                 </div>
-                                <p className=" truncate max-[420px]:invisible text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${server}/profile/${game.player1login}`}>{game.player1login}</Link> </p>
+                                <p className=" truncate max-[420px]:invisible text-small font-medium leading-[20px] tracking-gg-wider text-gg-light-3 order-1 text-right"><Link href={`${server}/profile/${(id1)?.id.toString()}`}>{game.player1login}</Link> </p>
                             </div>
                            </div>
                         <div className="relative min-w-[90px]">
@@ -152,20 +156,20 @@ function recentGames(games: Game[], pagePlayer: string){
                         <div>
                             <div className="grid w-full items-center gap-3 grid-cols-[auto,1fr]">
                                 <div className="relative flex h-10 w-10 items-center justify-center">
-                                    <a href={`${server}/profile/${game.player2login}`}>
+                                    <a href={`${server}/profile/${(id2)?.id.toString()}`}>
                                     <img loading="lazy" className="col-span-1 w-10 object-contain h-10 rounded-full border border-gg-dark-3 bg-gg-dark-3" src={avatar2?.avatarLink!=''? avatar2?.avatarLink : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt=""/>
                                 
                                     </a>
                                 </div>
                                 <p className=" truncate max-[420px]:invisible text-small font-medium leading-[20px] order-1 text-left">
-                                    <Link href={`${server}/profile/${game.player2login}`}>{<span className="">{game.player2login}</span>}</Link> 
+                                    <Link href={`${server}/profile/${(id2?.id.toString())}`}>{<span className="">{game.player2login}</span>}</Link> 
                                 </p>
                             </div>
                            </div>
                     </div>
                     <div className="justify-self-end">
-                        <p className={`text-right text-xs font-bold uppercase leading-[10px] tracking-[0.05em] ${pagePlayer == game.player1login ? (game.result == '1' ? 'text-green-500' : (game.result == '2' ? 'text-red-500' : 'text-gray-400')) : (game.result == '2' ? 'text-green-500' : (game.result == '1' ? 'text-red-500' : 'text-gray-400')) } `}>
-                            <span className="max-sm:hidden">{pagePlayer == game.player1login ? (game.result == '1' ? 'W' : (game.result == '2' ? 'L' : 'D')) : (game.result == '2' ? 'W' : (game.result == '1' ? 'L' : 'D')) }</span>
+                        <p className={`text-right text-xs font-bold uppercase leading-[10px] tracking-[0.05em] ${pagePlayer == id1?.id.toString() ? (game.result == '1' ? 'text-green-500' : (game.result == '2' ? 'text-red-500' : 'text-gray-400')) : (game.result == '2' ? 'text-green-500' : (game.result == '1' ? 'text-red-500' : 'text-gray-400')) } `}>
+                            <span className="max-sm:hidden">{pagePlayer == id1?.id.toString() ? (game.result == '1' ? 'W' : (game.result == '2' ? 'L' : 'D')) : (game.result == '2' ? 'W' : (game.result == '1' ? 'L' : 'D')) }</span>
                         </p>
                     </div>
                 </div>
@@ -175,11 +179,11 @@ function recentGames(games: Game[], pagePlayer: string){
 }
 
 export default async function Page({params}:{   
-    params: {login: string}
+    params: {id: string}
 }){
-    const profile = await getProfile(params.login) as any
-    const matches = await getMatches(params.login) as any
-    const socials = await getSocials(params.login) as any
+    const profile = await getProfile(params.id) as any
+    const matches = await getMatches(params.id) as any
+    const socials = await getSocials(params.id) as any
     return (
         <div className="lg:flex justify-center gap-12 mt-10">
         <div className="lg:block xs:md:sm: flex justify-evenly">
@@ -239,11 +243,11 @@ export default async function Page({params}:{
             <div>
                 <h2 className="text-xl font-bold mb-2 max-md:text-center">Statistics
                 </h2>
-                {getStatistics(params.login)}
+                {getStatistics(params.id)}
             </div>
             <div>
             <h2 className="text-xl font-bold max-md:text-center">Recent Matches</h2>
-            {recentGames(matches, params.login)}
+            {recentGames(matches, params.id)}
             </div>
         </div>
         </div>

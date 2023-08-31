@@ -1,10 +1,19 @@
 import { prisma } from "../../../prisma/client";
 
-async function getSocials(login: string){
+async function getSocials(id: string){
     'use server'
+    const user = await prisma.user.findUnique({
+        where:{
+            id: parseInt(id)
+        },
+        select:{
+            login: true
+        }
+    })
+
     const socials = await prisma.socialLink.findMany({
         where: {
-            userLogin: login
+            userLogin: user?.login
         },
         select:{
             telegram: true,

@@ -34,7 +34,8 @@ export const authOptions: NextAuthOptions = {
                         login: credentials.login
                     },
                     select:{
-                        avatarLink: true
+                        avatarLink: true,
+                        id: true
                     },
                 })
                 

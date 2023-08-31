@@ -5,8 +5,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
-import logo from '../../app/icon.png'
-import { Skeleton } from './skeleton'
+import getPlayerId from '../actions/getPlayerId'
+
 const navigation = [
   { name: 'Home', href: '/', current: false },
   { name: 'Ranking', href: '/ranking', current: false },
@@ -17,7 +17,7 @@ function classNames(...classes: any[]) {
 }
 
 export default function Navbar() {
-  const session:any = useSession() 
+  const session:any = useSession()
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }: any) => (
@@ -107,7 +107,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href={`/profile/${session.data.user!=undefined ? session.data.user.userLogin : ''}`}
+                            href={`/profile/${session.data.user!=undefined ? session.data.user?.id : ''}`}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Your Profile

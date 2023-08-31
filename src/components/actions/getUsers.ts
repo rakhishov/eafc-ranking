@@ -4,7 +4,7 @@ import { prisma } from "../../../prisma/client"
 async function getUsers(){
     const users = await prisma.user.findMany({
         orderBy: {
-            elo: 'desc'
+            rank: 'asc'
         }
     })
     return users

@@ -1,12 +1,22 @@
 import { prisma } from "../../../prisma/client";
+import getPlayerId from "./getPlayerId";
 
-async function getMatches(login: string){
+async function getMatches(id: string){
     'use server'
+
+    const player = await prisma.user.findUnique({
+      where:{
+        id: parseInt(id)
+      },
+      select:{
+        login: true
+      }
+    })
     const matches = await prisma.match.findMany({
         where: {
           OR: [
-            { player1login: login },
-            { player2login: login },
+            { player1login: player?.login },
+            { player2login: player?.login },
           ],
         },
       });

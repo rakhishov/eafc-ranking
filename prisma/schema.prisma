@@ -29,9 +29,9 @@ model User{
 
 model Match {
   matchID         Int      @id @default(autoincrement())
-  player1    User     @relation("Match_player1", fields: [player1login], references: [login])
+  player1    User     @relation("Match_player1", fields: [player1login], references: [login], onDelete: Cascade)
   player1login  String
-  player2    User     @relation("Match_player2", fields: [player2login], references: [login])
+  player2    User     @relation("Match_player2", fields: [player2login], references: [login], onDelete: Cascade)
   player2login  String
   score1      Int
   score2      Int
@@ -43,14 +43,14 @@ model SocialLink {
   id         Int      @id @default(autoincrement())
   instagram   String   // Example: "instagram", "telegram", "twitter"
   telegram   String
-  user       User?    @relation(fields: [userLogin], references: [login])
+  user       User?    @relation(fields: [userLogin], references: [login], onDelete: Cascade)
   userLogin    String?
 }
 
 model Auth {
   id       Int      @id @default(autoincrement())
   userLogin   String      @unique
-  user     User     @relation(fields: [userLogin], references: [login])
+  user     User     @relation(fields: [userLogin], references: [login], onDelete: Cascade)
   password String
   // Other fields for tokens, reset tokens, etc.
 }

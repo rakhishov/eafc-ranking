@@ -1,8 +1,6 @@
+'use server'
 import { prisma } from "../../../prisma/client";
-
-
 export default async function updateRanking(){
-    'use server'
     const orderedItems = await prisma.user.findMany({
         orderBy: {
           elo: 'desc' // 'asc' for ascending order or 'desc' for descending order

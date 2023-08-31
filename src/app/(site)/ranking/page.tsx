@@ -11,9 +11,12 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { useEffect, useState } from 'react'
 import getUsers from '@/components/actions/getUsers'
 import PaginationControls from '@/components/ui/PaginationControls'
+import { getServerSession } from "next-auth"
+import authOptions from "@/utils/authOptions"
+import DeleteButton from '@/components/ui/deleteButton'
+
 interface User{
     id: number;
     name: string;
@@ -36,8 +39,7 @@ export default async function RankingPage({
     const start = (Number(page) - 1) * Number(per_page)
     const end = start + Number(per_page)
     const players = users.slice(start, end)
-
-
+    const session = await getServerSession(authOptions)
     return (
     <div className='m-10'>
         <Table className='pt-6 pb-2 grid-cols-2 gap-10 mx-auto max-w-[1210px] px-2 sm:px-6 lg:px-8'>
@@ -48,6 +50,7 @@ export default async function RankingPage({
                     <TableHead>name</TableHead>
                     <TableHead>login</TableHead>
                     <TableHead className='text-right'>PTS</TableHead>
+                    {session && <TableHead></TableHead>}
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -61,8 +64,11 @@ export default async function RankingPage({
                         </Avatar>
                         </TableCell>
                         <TableCell>{user.name}</TableCell>
-                        <TableCell><Link href={`/profile/${user.login}`}>{user.login}</Link></TableCell>
+                        <TableCell><Link href={`/profile/${user.id}`}>{user.login}</Link></TableCell>
                         <TableCell className='text-right'>{user.elo}</TableCell>
+                        {session && <TableCell className='text-right'>{
+                        <DeleteButton id={user.id}/>     
+                        }</TableCell>}
                 </TableRow>)
                 }
                 
