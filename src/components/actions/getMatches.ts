@@ -19,6 +19,9 @@ async function getMatches(id: string){
             { player2login: player?.login },
           ],
         },
+        orderBy: {
+          matchID: 'asc'
+        }
       });
     const len = matches.length
     if(len>5){

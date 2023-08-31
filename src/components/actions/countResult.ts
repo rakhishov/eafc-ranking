@@ -44,8 +44,8 @@ export default async function handleSubmit(formData: FormData): Promise<void>{
                 elo: newElo2
             }
     })
-    updateMatches(login1, login2, score1, score2)
-    updateRanking()
+    await updateMatches(login1, login2, score1, score2)
+    await updateRanking()
     revalidatePath('/profile/'+login1)
     revalidatePath('/profile/'+login2)
 

@@ -15,16 +15,16 @@ export default async function updateMatches(login1: string, login2: string, scor
         }
     })
     if(result === '1'){
-        updateStatistics(login1, result)
-        updateStatistics(login2, '2')
+        await updateStatistics(login1, result)
+        await updateStatistics(login2, '2')
     }
     else if(result === '2'){
-        updateStatistics(login1, '2')
-        updateStatistics(login2, '1')
+        await updateStatistics(login1, '2')
+        await updateStatistics(login2, '1')
     }
     else if(result === 'X'){
-        updateStatistics(login1, result)
-        updateStatistics(login2, result)
+        await updateStatistics(login1, result)
+        await updateStatistics(login2, result)
     }
 }
 
@@ -56,6 +56,7 @@ async function updateStatistics(login: string, result: string){
     }
 
     else if(result === 'X'){
+        console.log("login " + login)
         await prisma.user.update({
             where:{
                 login: login
